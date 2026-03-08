@@ -31,12 +31,17 @@ defmodule FlipflopCodes.MixProject do
     modules =
       case args do
         [] ->
-          [{"demo", FlipflopCodes.Demo}, {"puzzle1", FlipflopCodes.Puzzle1}]
+          [
+            {"demo", FlipflopCodes.Demo},
+            {"puzzle1", FlipflopCodes.Puzzle1},
+            {"puzzle2", FlipflopCodes.Puzzle2}
+          ]
 
         [name | _] ->
           case name do
             "demo" -> [{"demo", FlipflopCodes.Demo}]
             "puzzle1" -> [{"puzzle1", FlipflopCodes.Puzzle1}]
+            "puzzle2" -> [{"puzzle2", FlipflopCodes.Puzzle2}]
             _ -> Mix.raise("Unknown module: #{name}")
           end
       end

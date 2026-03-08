@@ -1,36 +1,45 @@
 defmodule FlipflopCodes.Demo do
   @moduledoc """
-  Reads the demo.txt file from the given folder and outputs the sum of all numbers.
+  Reads the demo.txt file from the given folder and outputs various calculations.
   """
 
   @doc """
-  Reads the file from the given folder (defaults to "examples") and outputs the sum.
+  Runs the puzzle parts for a given folder.
   """
   def run(args \\ []) do
-    folder =
-      case args do
-        [folder_name] -> folder_name
-        _ -> "examples"
-      end
-
-    {sum, average, combined} = solve(folder)
-
-    IO.puts("Sum: #{sum}")
-    IO.puts("Average: #{average}")
-    IO.puts("Combined: #{combined}")
+    FlipflopCodes.Utils.run(args, [&part1/1, &part2/1, &part3/1])
   end
 
   @doc """
-  Reads the file and returns a tuple with the sum, average, and combined number.
+  Reads the file from the given folder and outputs the sum.
   """
-  def solve(folder) do
+  def part1(folder \\ "examples") do
+    FlipflopCodes.Utils.stream!(folder, "demo.txt")
+    |> Enum.map(&String.to_integer/1)
+    |> Enum.sum()
+  end
+
+  @doc """
+  Reads the file from the given folder and outputs the average.
+  """
+  def part2(folder \\ "examples") do
     numbers =
-      FlipflopCodes.Input.stream!(folder, "demo.txt")
+      FlipflopCodes.Utils.stream!(folder, "demo.txt")
       |> Enum.map(&String.to_integer/1)
 
-    sum = Enum.sum(numbers)
     count = length(numbers)
-    average = if count == 0, do: 0, else: round(sum / count)
+    if count == 0, do: 0, else: round(Enum.sum(numbers) / count)
+  end
+
+  @doc """
+  Reads the file from the given folder and outputs the combined number.
+  """
+  def part3(folder \\ "examples") do
+    numbers =
+      FlipflopCodes.Utils.stream!(folder, "demo.txt")
+      |> Enum.map(&String.to_integer/1)
+
+    count = length(numbers)
 
     most_common_number =
       if count == 0 do
@@ -53,13 +62,10 @@ defmodule FlipflopCodes.Demo do
         |> elem(0)
       end
 
-    combined =
-      if count == 0 do
-        0
-      else
-        String.to_integer("#{most_common_number}#{least_common_digit}")
-      end
-
-    {sum, average, combined}
+    if count == 0 do
+      0
+    else
+      String.to_integer("#{most_common_number}#{least_common_digit}")
+    end
   end
 end

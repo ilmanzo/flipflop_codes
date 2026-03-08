@@ -1,7 +1,23 @@
-defmodule FlipflopCodes.Input do
+defmodule FlipflopCodes.Utils do
   @moduledoc """
-  Helper module for reading input files, avoiding redundant file loading logic.
+  Utility functions for reading inputs and running puzzles.
   """
+
+  @doc """
+  Runs the puzzle parts for a given folder, taking a list of three functions.
+  """
+  def run(args \\ [], funs) do
+    folder =
+      case args do
+        [folder_name] -> folder_name
+        _ -> "examples"
+      end
+
+    [fun1, fun2, fun3] = funs
+    IO.puts("Part 1: #{fun1.(folder)}")
+    IO.puts("Part 2: #{fun2.(folder)}")
+    IO.puts("Part 3: #{fun3.(folder)}")
+  end
 
   @doc """
   Streams lines from the given file in the specified folder (e.g. "examples" or "inputs").
