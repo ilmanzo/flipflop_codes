@@ -46,14 +46,26 @@ defmodule FlipflopCodes.MixProject do
           end
       end
 
-    Enum.each(modules, fn {name, module} ->
+    tasks =
+      for {name, module} <- modules do
+        {
+          name,
+          Task.async(fn -> module.run(["examples"]) end),
+          Task.async(fn -> module.run(["inputs"]) end)
+        }
+      end
+
+    for {name, examples_task, inputs_task} <- tasks do
+      examples_out = Task.await(examples_task, :infinity)
+      inputs_out = Task.await(inputs_task, :infinity)
+
       IO.puts("=== Running #{name} ===")
       IO.puts("--- Examples ---")
-      module.run(["examples"])
+      IO.puts(examples_out)
       IO.puts("--- Inputs ---")
-      module.run(["inputs"])
+      IO.puts(inputs_out)
       IO.puts("")
-    end)
+    end
   end
 
   # Run "mix help deps" to learn about dependencies.

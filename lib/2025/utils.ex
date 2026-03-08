@@ -13,10 +13,12 @@ defmodule FlipflopCodes.Utils do
         _ -> "examples"
       end
 
-    [fun1, fun2, fun3] = funs
-    IO.puts("Part 1: #{fun1.(folder)}")
-    IO.puts("Part 2: #{fun2.(folder)}")
-    IO.puts("Part 3: #{fun3.(folder)}")
+    funs
+    |> Enum.map(fn fun -> Task.async(fn -> fun.(folder) end) end)
+    |> Enum.map(&Task.await(&1, :infinity))
+    |> Enum.with_index(1)
+    |> Enum.map(fn {res, i} -> "Part #{i}: #{res}" end)
+    |> Enum.join("\n")
   end
 
   @doc """
