@@ -7,7 +7,8 @@ defmodule FlipflopCodes.MixProject do
       version: "0.1.0",
       elixir: "~> 1.19",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -16,6 +17,38 @@ defmodule FlipflopCodes.MixProject do
     [
       extra_applications: [:logger]
     ]
+  end
+
+  defp aliases do
+    [
+      "2025": &run_2025/1
+    ]
+  end
+
+  defp run_2025(args) do
+    Mix.Task.run("app.start")
+
+    modules =
+      case args do
+        [] ->
+          [{"demo", FlipflopCodes.Demo}, {"puzzle1", FlipflopCodes.Puzzle1}]
+
+        [name | _] ->
+          case name do
+            "demo" -> [{"demo", FlipflopCodes.Demo}]
+            "puzzle1" -> [{"puzzle1", FlipflopCodes.Puzzle1}]
+            _ -> Mix.raise("Unknown module: #{name}")
+          end
+      end
+
+    Enum.each(modules, fn {name, module} ->
+      IO.puts("=== Running #{name} ===")
+      IO.puts("--- Examples ---")
+      module.run(["examples"])
+      IO.puts("--- Inputs ---")
+      module.run(["inputs"])
+      IO.puts("")
+    end)
   end
 
   # Run "mix help deps" to learn about dependencies.

@@ -22,3 +22,5 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 flipflop_codes-*.tar
 
+# Ignore real puzzle inputs
+/2025/inputs/*.txt
