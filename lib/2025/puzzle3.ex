@@ -45,17 +45,16 @@ defmodule FlipflopCodes.Puzzle3 do
     |> Enum.sum()
   end
 
-  @bush_prices %{
-    red: 5,
-    green: 2,
-    blue: 4,
-    special: 10
-  }
-
   @doc """
   Returns the price of a bush given its label.
   """
   def bush_price(label) do
-    Map.fetch!(@bush_prices, label)
+    prices=%{
+      red: 5,
+      green: 2,
+      blue: 4,
+      special: 10
+    }
+    prices[label]
   end
 end
