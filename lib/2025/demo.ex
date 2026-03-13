@@ -4,13 +4,6 @@ defmodule FlipflopCodes.Demo do
   """
 
   @doc """
-  Runs the puzzle parts for a given folder.
-  """
-  def run(args \\ []) do
-    FlipflopCodes.Utils.run(args, [&part1/1, &part2/1, &part3/1])
-  end
-
-  @doc """
   Reads the file from the given folder and outputs the sum.
   """
   def part1(folder \\ "examples") do

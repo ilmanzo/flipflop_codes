@@ -4,6 +4,19 @@ defmodule FlipflopCodes.Utils do
   """
 
   @doc """
+  Runs the puzzle parts for a given module and arguments.
+  """
+  def run_module(module, args \\ []) do
+    funs = [
+      Function.capture(module, :part1, 1),
+      Function.capture(module, :part2, 1),
+      Function.capture(module, :part3, 1)
+    ]
+
+    run(args, funs)
+  end
+
+  @doc """
   Runs the puzzle parts for a given folder, taking a list of three functions.
   """
   def run(args \\ [], funs) do

@@ -34,7 +34,8 @@ defmodule FlipflopCodes.MixProject do
           [
             {"demo", FlipflopCodes.Demo},
             {"puzzle1", FlipflopCodes.Puzzle1},
-            {"puzzle2", FlipflopCodes.Puzzle2}
+            {"puzzle2", FlipflopCodes.Puzzle2},
+            {"puzzle3", FlipflopCodes.Puzzle3}
           ]
 
         [name | _] ->
@@ -42,6 +43,7 @@ defmodule FlipflopCodes.MixProject do
             "demo" -> [{"demo", FlipflopCodes.Demo}]
             "puzzle1" -> [{"puzzle1", FlipflopCodes.Puzzle1}]
             "puzzle2" -> [{"puzzle2", FlipflopCodes.Puzzle2}]
+            "puzzle3" -> [{"puzzle3", FlipflopCodes.Puzzle3}]
             _ -> Mix.raise("Unknown module: #{name}")
           end
       end
@@ -50,8 +52,8 @@ defmodule FlipflopCodes.MixProject do
       for {name, module} <- modules do
         {
           name,
-          Task.async(fn -> module.run(["examples"]) end),
-          Task.async(fn -> module.run(["inputs"]) end)
+          Task.async(fn -> FlipflopCodes.Utils.run_module(module, ["examples"]) end),
+          Task.async(fn -> FlipflopCodes.Utils.run_module(module, ["inputs"]) end)
         }
       end
 

@@ -4,13 +4,6 @@ defmodule FlipflopCodes.Puzzle2 do
   """
 
   @doc """
-  Runs the puzzle parts for a given folder.
-  """
-  def run(args \\ []) do
-    FlipflopCodes.Utils.run(args, [&part1/1, &part2/1, &part3/1])
-  end
-
-  @doc """
   Reads the puzzle2.txt file from the given folder and returns the maximum height reached.
   """
   def part1(folder \\ "examples") do

@@ -4,13 +4,6 @@ defmodule FlipflopCodes.Puzzle1 do
   """
 
   @doc """
-  Runs the puzzle parts for a given folder.
-  """
-  def run(args \\ []) do
-    FlipflopCodes.Utils.run(args, [&part1/1, &part2/1, &part3/1])
-  end
-
-  @doc """
   Reads the puzzle1.txt file from the given folder and returns the total score.
   """
   def part1(folder \\ "examples") do
