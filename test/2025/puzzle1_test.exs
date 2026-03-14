@@ -22,13 +22,15 @@ defmodule FlipflopCodes.Puzzle1Test do
   end
 
   test "solves the puzzle for inputs folder" do
-    score1 = Puzzle1.part1("inputs")
-    assert is_integer(score1)
+    if File.exists?("2025/inputs/puzzle1.txt") do
+      score1 = Puzzle1.part1("inputs")
+      assert is_integer(score1)
 
-    score2 = Puzzle1.part2("inputs")
-    assert is_integer(score2)
+      score2 = Puzzle1.part2("inputs")
+      assert is_integer(score2)
 
-    score3 = Puzzle1.part3("inputs")
-    assert is_integer(score3)
+      score3 = Puzzle1.part3("inputs")
+      assert is_integer(score3)
+    end
   end
 end

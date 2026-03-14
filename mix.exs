@@ -35,7 +35,8 @@ defmodule FlipflopCodes.MixProject do
             {"demo", FlipflopCodes.Demo},
             {"puzzle1", FlipflopCodes.Puzzle1},
             {"puzzle2", FlipflopCodes.Puzzle2},
-            {"puzzle3", FlipflopCodes.Puzzle3}
+            {"puzzle3", FlipflopCodes.Puzzle3},
+            {"puzzle4", FlipflopCodes.Puzzle4}
           ]
 
         [name | _] ->
@@ -44,6 +45,7 @@ defmodule FlipflopCodes.MixProject do
             "puzzle1" -> [{"puzzle1", FlipflopCodes.Puzzle1}]
             "puzzle2" -> [{"puzzle2", FlipflopCodes.Puzzle2}]
             "puzzle3" -> [{"puzzle3", FlipflopCodes.Puzzle3}]
+            "puzzle4" -> [{"puzzle4", FlipflopCodes.Puzzle4}]
             _ -> Mix.raise("Unknown module: #{name}")
           end
       end
@@ -52,8 +54,20 @@ defmodule FlipflopCodes.MixProject do
       for {name, module} <- modules do
         {
           name,
-          Task.async(fn -> FlipflopCodes.Utils.run_module(module, ["examples"]) end),
-          Task.async(fn -> FlipflopCodes.Utils.run_module(module, ["inputs"]) end)
+          Task.async(fn ->
+            if File.exists?("2025/examples/#{name}.txt") do
+              FlipflopCodes.Utils.run_module(module, ["examples"])
+            else
+              "Skipped"
+            end
+          end),
+          Task.async(fn ->
+            if File.exists?("2025/inputs/#{name}.txt") do
+              FlipflopCodes.Utils.run_module(module, ["inputs"])
+            else
+              "Skipped"
+            end
+          end)
         }
       end
 
