@@ -36,7 +36,8 @@ defmodule FlipflopCodes.MixProject do
             {"puzzle1", FlipflopCodes.Puzzle1},
             {"puzzle2", FlipflopCodes.Puzzle2},
             {"puzzle3", FlipflopCodes.Puzzle3},
-            {"puzzle4", FlipflopCodes.Puzzle4}
+            {"puzzle4", FlipflopCodes.Puzzle4},
+            {"puzzle5", FlipflopCodes.Puzzle5}
           ]
 
         [name | _] ->
@@ -46,6 +47,7 @@ defmodule FlipflopCodes.MixProject do
             "puzzle2" -> [{"puzzle2", FlipflopCodes.Puzzle2}]
             "puzzle3" -> [{"puzzle3", FlipflopCodes.Puzzle3}]
             "puzzle4" -> [{"puzzle4", FlipflopCodes.Puzzle4}]
+            "puzzle5" -> [{"puzzle5", FlipflopCodes.Puzzle5}]
             _ -> Mix.raise("Unknown module: #{name}")
           end
       end
